@@ -16,21 +16,31 @@ class HYHttpTool: NSObject {
      *  param: 传过来的接口个性参数
      *  complete：接口返回的参数
      */
-    class func post(url: String?, param: NSMutableDictionary, complete: @escaping (HTTPURLResponse?, Result<String>) -> Void ) -> Void {
+    class func post(url: String?, param: Parameters, complete: @escaping (HTTPURLResponse?, Result<Any>) -> Void ) -> Void {
         
         // 如果发过来的链接长度为空，则直接返回，不做任何反应
         guard let urlString = url, strlen(url) > 0 else {
             return
         }
         
-        // 发起post申请
-        let request: Alamofire.Request? = Alamofire.request(urlString, method: .post)
-        // 如果是数据类型的请求
-        if let request = request as? DataRequest {
-            
-            request.responseString(completionHandler: { response in
-                complete(response.response, response.result)
-            })
+        Alamofire.request(urlString, method: .post, parameters: param).responseJSON { (response) in
+            complete(response.response, response.result)
+        }
+    }
+    
+    /*  接口get请求
+     *  url: 传过来的url
+     *  complete：接口返回的参数
+     */
+    class func get(url: String?, complete: @escaping (HTTPURLResponse?, Result<Any>) -> Void ) -> Void {
+        
+        // 如果发过来的链接长度为空，则直接返回，不做任何反应
+        guard let urlString = url, strlen(url) > 0 else {
+            return
+        }
+        
+        Alamofire.request(urlString, method: .get).responseJSON { (response) in
+            complete(response.response, response.result)
         }
     }
 

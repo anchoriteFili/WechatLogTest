@@ -12,18 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
-    let APPID = ""
+    let APPID = "wx40683bbaae3afdd4"
     let SECRET = ""
-    
-    let CODE = ""
-    
-    
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        WXApi.registerApp("wx96ff8e3c5c1c313d")
+        WXApi.registerApp(APPID)
         return true
     }
     
@@ -56,9 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         switch resp.errCode {
         case 0: // 用户同意
             // 调用相关方法
-            
-            
-            
+            let aresp: SendAuthResp = resp as! SendAuthResp
+            print("code *********** \(aresp.code)")
+            weChatCallBackWithCode(code: aresp.code)
             break
         case -4: // 用户拒绝授权
             break
@@ -72,24 +67,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
     
     func weChatCallBackWithCode(code: String) {
         
-        let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token?\(APPID)=&secret=\(SECRET)&code=\(code)&grant_type=authorization_code"
+        let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token"
+        print("urlString ************** \(urlString)")
         
-        HYHttpTool.post(url: urlString, param: [:]) { (response, result) in
-            let dic: NSDictionary = String.getDictionaryFromJSONString(jsonString: result.value!)
-            print(dic.value(forKey: "headers") as Any)
+        HYHttpTool.post(url: urlString, param: ["appid":APPID,"secret":SECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
+            print("dicOne ************ \(result.value)")
+            
+            let dic: NSDictionary = result.value as! NSDictionary
+            
+            if let errmsg = dic.value(forKey: "errmsg") {
+                print("errmsg ************** \(errmsg)")
+                return
+            }
+            
+            self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
         }
-
+        
     }
     
     func getUserInfoWithAccessToken(accessToken: String, openId: String) {
         
-        let urlString = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
+        let urlString = "https://api.weixin.qq.com/sns/userinfo"
         
-        HYHttpTool.post(url: urlString, param: [:]) { (response, result) in
-            let dic: NSDictionary = String.getDictionaryFromJSONString(jsonString: result.value!)
-            print(dic.value(forKey: "headers") as Any)
+        HYHttpTool.post(url: urlString, param: ["access_token":accessToken,"openid":openId]) { (response, result) in
+            print("dicTwo ************ \(String(describing: result.value))")
+            let dic: NSDictionary = result.value as! NSDictionary
+            
+            if let errmsg = dic.value(forKey: "errmsg") {
+                print("errmsg ************** \(errmsg)")
+                return
+            }
         }
-        
     }
     
     
