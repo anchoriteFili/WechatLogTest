@@ -1,0 +1,6 @@
+framework module Pods_WechatLogTest {
+  umbrella header "Pods-WechatLogTest-umbrella.h"
+
+  export *
+  module * { export * }
+}
