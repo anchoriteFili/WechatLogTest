@@ -9,8 +9,10 @@ use_frameworks!
 pod 'WechatOpenSDK'
 
 ```
-[iOS接入指南](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=1417694084&token=&lang=zh_CN)
-[移动应用微信登录开发指南](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=&lang=zh_CN)
+相关资料：<br>
+[iOS接入指南](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=1417694084&token=&lang=zh_CN)<br>
+[移动应用微信登录开发指南](https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=&lang=zh_CN)<br>
+[个人日记保存点](http://www.cnblogs.com/AnchoriteFiliGod/diary/2017/12/21/8080913.html)
 
 
 ### 点击调取微信(BuildSettings中设置好URLTypes)
