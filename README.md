@@ -1,4 +1,4 @@
-# WechatLogTest
+# WechatLog_swift
 
 ### 接入流程
 ```
