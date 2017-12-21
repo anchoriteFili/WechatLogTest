@@ -9,15 +9,90 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
+    let APPID = ""
+    let SECRET = ""
+    
+    let CODE = ""
+    
+    
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        WXApi.registerApp("wx96ff8e3c5c1c313d")
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return WXApi.handleOpen(url, delegate: self)
+    }
+    
+    func onReq(_ req: BaseReq!) {
+        
+        if req.isKind(of: GetMessageFromWXReq.self) {
+            // 微信请求APP提供内容，需要app提供内容后使用senRsp返回
+            print("微信请求App提供内容，App要调用sendResp:GetMessageFromWXResp返回给微信")
+        } else if req.isKind(of: ShowMessageFromWXReq.self) {
+
+            let tmp: ShowMessageFromWXReq = req as! ShowMessageFromWXReq
+            
+            // 显示微信传过来的内容
+            let msg: WXMediaMessage = tmp.message
+            let obj: WXAppExtendObject = msg.mediaObject as! WXAppExtendObject
+            
+            print("标题：\(msg.title) 内容：\(msg.description) 附带信息：\(obj.extInfo) 缩略图：\(msg.thumbData.count)")
+        } else if req.isKind(of: LaunchFromWXReq.self) {
+            // 从微信启动app
+            print("从微信启动app")
+        }
+    }
+    
+    func onResp(_ resp: BaseResp!) {
+        
+        switch resp.errCode {
+        case 0: // 用户同意
+            // 调用相关方法
+            
+            
+            
+            break
+        case -4: // 用户拒绝授权
+            break
+        case -2: // 用户取消
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func weChatCallBackWithCode(code: String) {
+        
+        let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token?\(APPID)=&secret=\(SECRET)&code=\(code)&grant_type=authorization_code"
+        
+        HYHttpTool.post(url: urlString, param: [:]) { (response, result) in
+            let dic: NSDictionary = String.getDictionaryFromJSONString(jsonString: result.value!)
+            print(dic.value(forKey: "headers") as Any)
+        }
+
+    }
+    
+    func getUserInfoWithAccessToken(accessToken: String, openId: String) {
+        
+        let urlString = "https://api.weixin.qq.com/sns/userinfo?access_token=\(accessToken)&openid=\(openId)"
+        
+        HYHttpTool.post(url: urlString, param: [:]) { (response, result) in
+            let dic: NSDictionary = String.getDictionaryFromJSONString(jsonString: result.value!)
+            print(dic.value(forKey: "headers") as Any)
+        }
+        
+    }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

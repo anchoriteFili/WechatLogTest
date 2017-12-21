@@ -16,6 +16,8 @@
 		D6E58A7B1FEB50ED0060DC91 /* WechatLogTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A7A1FEB50ED0060DC91 /* WechatLogTestTests.swift */; };
 		D6E58A861FEB50ED0060DC91 /* WechatLogTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A851FEB50ED0060DC91 /* WechatLogTestUITests.swift */; };
 		D6E58A941FEB520A0060DC91 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6E58A931FEB520A0060DC91 /* README.md */; };
+		D6E58A9D1FEB688B0060DC91 /* HYHttpTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */; };
+		D6E58A9F1FEB69970060DC91 /* StringExtTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A9E1FEB69970060DC91 /* StringExtTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 		D6E58A851FEB50ED0060DC91 /* WechatLogTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WechatLogTestUITests.swift; sourceTree = "<group>"; };
 		D6E58A871FEB50ED0060DC91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6E58A931FEB520A0060DC91 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		D6E58A951FEB53810060DC91 /* WechatLogTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WechatLogTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HYHttpTool.swift; sourceTree = "<group>"; };
+		D6E58A9E1FEB69970060DC91 /* StringExtTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,12 +129,15 @@
 			isa = PBXGroup;
 			children = (
 				D6E58A931FEB520A0060DC91 /* README.md */,
+				D6E58A9E1FEB69970060DC91 /* StringExtTool.swift */,
 				D6E58A651FEB50ED0060DC91 /* AppDelegate.swift */,
 				D6E58A671FEB50ED0060DC91 /* ViewController.swift */,
+				D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */,
 				D6E58A691FEB50ED0060DC91 /* Main.storyboard */,
 				D6E58A6C1FEB50ED0060DC91 /* Assets.xcassets */,
 				D6E58A6E1FEB50ED0060DC91 /* LaunchScreen.storyboard */,
 				D6E58A711FEB50ED0060DC91 /* Info.plist */,
+				D6E58A951FEB53810060DC91 /* WechatLogTest-Bridging-Header.h */,
 			);
 			path = WechatLogTest;
 			sourceTree = "<group>";
@@ -223,6 +231,7 @@
 				TargetAttributes = {
 					D6E58A611FEB50ED0060DC91 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					D6E58A751FEB50ED0060DC91 = {
@@ -307,9 +316,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WechatLogTest/Pods-WechatLogTest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -341,7 +353,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6E58A9F1FEB69970060DC91 /* StringExtTool.swift in Sources */,
 				D6E58A681FEB50ED0060DC91 /* ViewController.swift in Sources */,
+				D6E58A9D1FEB688B0060DC91 /* HYHttpTool.swift in Sources */,
 				D6E58A661FEB50ED0060DC91 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,12 +523,16 @@
 			baseConfigurationReference = 31476E9951E030656573E04B /* Pods-WechatLogTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GM2EX5ALF4;
 				INFOPLIST_FILE = WechatLogTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zhaohongya.WechatLogTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WechatLogTest/WechatLogTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,12 +543,15 @@
 			baseConfigurationReference = CCDF0856B43ED13D4258B6FA /* Pods-WechatLogTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GM2EX5ALF4;
 				INFOPLIST_FILE = WechatLogTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = zhaohongya.WechatLogTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WechatLogTest/WechatLogTest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

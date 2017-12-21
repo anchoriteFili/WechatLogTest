@@ -19,6 +19,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    @IBAction func loginClick(_ sender: UIButton) {
+        sendAuthRequest()
+    }
+    
+    
+    func sendAuthRequest() {
+        let req: SendAuthReq = SendAuthReq()
+        req.scope = "snsapi_userinfo"
+        req.state = "WechatLogTest"
+        WXApi.send(req)
+        
+    }
+    
 
 
 }
