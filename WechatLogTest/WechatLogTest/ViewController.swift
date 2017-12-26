@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func loginClick(_ sender: UIButton) {
-        WXLogTool.shared.sendAuthRequest()
+        WXLogTool.shared.weChatLogin()
     }
     
     
