@@ -8,8 +8,8 @@
 
 import UIKit
 
-let APPID = "wx0cd8451d269de523"
-let SECRET = "e70fa5e1c1bce1360768ef64078fda78"
+let WXAPPID = "wx0cd8451d269de523"
+let WXSECRET = "e70fa5e1c1bce1360768ef64078fda78"
 let USER_DEFAULT = UserDefaults.standard // 获取userDefault
 let WXRefreshToken = "WXLogTool_refreshToken"
 let WXAccessToken = "WXLogTool_accessToken"
@@ -17,14 +17,63 @@ let WXOpenID = "WXLogTool_openid"
 let WXUnionid = "WXLogTool_unionid"
 
 
-
-class WXLogTool: NSObject {
+class WXLogTool: NSObject, WXApiDelegate {
     
     /**
      * 创建单例，使用实例：let ClassName = HYHttpTool.shared
      */
     static let shared = WXLogTool.init()
     private override init() {}
+    
+    /// 注册appid
+    func registerApp() {
+        WXApi.registerApp(WXAPPID)
+    }
+    
+    /// 收到一个来自微信的请求，第三方应用程序处理完后调用sendResp向微信发送结果
+    ///
+    /// - Parameter req: 具体请求内容，是自动释放的
+    func onReq(_ req: BaseReq!) {
+        
+        if req.isKind(of: GetMessageFromWXReq.self) {
+            // 微信请求APP提供内容，需要app提供内容后使用senRsp返回
+            print("微信请求App提供内容，App要调用sendResp:GetMessageFromWXResp返回给微信")
+        } else if req.isKind(of: ShowMessageFromWXReq.self) {
+            
+            let tmp: ShowMessageFromWXReq = req as! ShowMessageFromWXReq
+            
+            // 显示微信传过来的内容
+            let msg: WXMediaMessage = tmp.message
+            let obj: WXAppExtendObject = msg.mediaObject as! WXAppExtendObject
+            
+            print("标题：\(msg.title) 内容：\(msg.description) 附带信息：\(obj.extInfo) 缩略图：\(msg.thumbData.count)")
+        } else if req.isKind(of: LaunchFromWXReq.self) {
+            // 从微信启动app
+            print("从微信启动app")
+        }
+    }
+    
+    /// 发送一个sendReq后，收到微信的回应
+    ///
+    /// - Parameter resp: 具体的回应内容，是自动释放的
+    func onResp(_ resp: BaseResp!) {
+        
+        switch resp.errCode {
+        case 0: // 用户同意
+            // 调用相关方法
+            let aresp: SendAuthResp = resp as! SendAuthResp
+            print("code *********** \(aresp.code)")
+            weChatCallBackWithCode(code: aresp.code)
+            break
+        case -4: // 用户拒绝授权
+            break
+        case -2: // 用户取消
+            break
+        default:
+            break
+        }
+        
+    }
     
     
     /** https://api.weixin.qq.com/sns/oauth2/access_token
@@ -41,7 +90,7 @@ class WXLogTool: NSObject {
         let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token"
         print("urlString ************** \(urlString)")
         
-        HYHttpTool.post(url: urlString, param: ["appid":APPID,"secret":SECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
+        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"secret":WXSECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
             print("code 获取 ************ \(String(describing: result.value))")
             
             let dic: NSDictionary = result.value as! NSDictionary
@@ -88,7 +137,7 @@ class WXLogTool: NSObject {
         
         let urlString = "https://api.weixin.qq.com/sns/oauth2/refresh_token"
         
-        HYHttpTool.post(url: urlString, param: ["appid":APPID,"grant_type":"refresh_token","refresh_token":refreshToken]) { (response, result) in
+        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"grant_type":"refresh_token","refresh_token":refreshToken]) { (response, result) in
             print("使用refresh_token刷新access_token ************ \(String(describing: result.value))")
             let dic: NSDictionary = result.value as! NSDictionary
             
@@ -145,10 +194,12 @@ class WXLogTool: NSObject {
             return
         }
         
+        sendAuthRequest()
+        
         if (USER_DEFAULT.object(forKey: WXAccessToken) != nil) {
-            
+
             accessTokenUsable(access_token: USER_DEFAULT.object(forKey: WXAccessToken) as! String, openId: USER_DEFAULT.object(forKey: WXOpenID) as! String, complete: { (isOK) in
-                
+
                 if isOK {
                     print("isOK === yes")
                     // 如果还可以用，则直接去申请用户信息
@@ -159,7 +210,7 @@ class WXLogTool: NSObject {
                     // 如果存在则使用refresh_token刷新access_token
                     self.refreshAccessToken(refreshToken: USER_DEFAULT.object(forKey: WXRefreshToken) as! String)
                 }
-                
+
             })
         } else {
             // 如果不存在则直接授权
@@ -167,7 +218,7 @@ class WXLogTool: NSObject {
         }
     }
     
-    /// 授权方法
+    /// 授权方法，直接跳转到微信进行授权
     func sendAuthRequest() {
         let req: SendAuthReq = SendAuthReq()
         req.scope = "snsapi_userinfo"
