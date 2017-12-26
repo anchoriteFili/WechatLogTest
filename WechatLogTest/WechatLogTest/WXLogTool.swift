@@ -43,23 +43,26 @@ class WXLogTool: NSObject {
         
         self.code = code
         HYHttpTool.post(url: urlString, param: ["appid":APPID,"secret":SECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
-            print("dicOne ************ \(result.value)")
+            print("dicOne ************ \(String(describing: result.value))")
             
             let dic: NSDictionary = result.value as! NSDictionary
             if let errmsg = dic.value(forKey: "errmsg") {
                 print("errmsg ************** \(errmsg)")
                 return
             }
-//            self.access_token = dic.value(forKey: "access_token") as! String
-//            self.openid = dic.value(forKey: "openid") as! String
-//            self.refresh_token = dic.value(forKey: "refresh_token") as! String
-//            self.unionid = dic.value(forKey: "unionid") as! String
             
+            USER_DEFAULT.object(forKey: dic.value(forKey: "refresh_token") as! String)
+
             self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
         }
         
     }
     
+    /// 获取微信用户信息方法
+    ///
+    /// - Parameters:
+    ///   - accessToken: 接口调用凭证
+    ///   - openId: 授权用户唯一标识
     func getUserInfoWithAccessToken(accessToken: String, openId: String) {
         
         let urlString = "https://api.weixin.qq.com/sns/userinfo"
@@ -75,7 +78,10 @@ class WXLogTool: NSObject {
         }
     }
     
-    // 刷新access_token
+    
+    /// 使用refresh_token刷新access_token
+    ///
+    /// - Parameter refreshToken: 用户刷新access_token
     func refreshAccessToken(refreshToken: String) {
         
         let urlString = "https://api.weixin.qq.com/sns/oauth2/refresh_token"
@@ -94,21 +100,31 @@ class WXLogTool: NSObject {
                 self.openid = dic.value(forKey: "openid") as! String
                 self.refresh_token = dic.value(forKey: "refresh_token") as! String
                 
+                USER_DEFAULT.object(forKey: dic.value(forKey: "refresh_token") as! String)
+                
                 self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
             }
         }
     }
     
-    /*
-     * 调取获取调往微信授权
-     */
+    /// 登录点击方法
+    func weChatLogin() {
+        
+        if (USER_DEFAULT.object(forKey: "WXLogTool_Refresh") != nil) {
+            // 如果存在则使用refresh_token刷新access_token
+            refreshAccessToken(refreshToken: USER_DEFAULT.object(forKey: "WXLogTool_Refresh") as! String)
+        } else {
+            // 如果不存在则直接授权
+            sendAuthRequest()
+        }
+    }
+    
+    /// 授权方法
     func sendAuthRequest() {
         let req: SendAuthReq = SendAuthReq()
         req.scope = "snsapi_userinfo"
         req.state = "WechatLogTest"
         WXApi.send(req)
     }
-    
-    
 
 }
