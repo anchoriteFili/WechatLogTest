@@ -8,12 +8,13 @@
 
 import UIKit
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
-    let APPID = "wx40683bbaae3afdd4"
-    let SECRET = ""
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -53,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
             // 调用相关方法
             let aresp: SendAuthResp = resp as! SendAuthResp
             print("code *********** \(aresp.code)")
-            weChatCallBackWithCode(code: aresp.code)
+            WXLogTool.shared.weChatCallBackWithCode(code: aresp.code)
             break
         case -4: // 用户拒绝授权
             break
@@ -65,40 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
         
     }
     
-    func weChatCallBackWithCode(code: String) {
-        
-        let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token"
-        print("urlString ************** \(urlString)")
-        
-        HYHttpTool.post(url: urlString, param: ["appid":APPID,"secret":SECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
-            print("dicOne ************ \(result.value)")
-            
-            let dic: NSDictionary = result.value as! NSDictionary
-            
-            if let errmsg = dic.value(forKey: "errmsg") {
-                print("errmsg ************** \(errmsg)")
-                return
-            }
-            
-            self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
-        }
-        
-    }
     
-    func getUserInfoWithAccessToken(accessToken: String, openId: String) {
-        
-        let urlString = "https://api.weixin.qq.com/sns/userinfo"
-        
-        HYHttpTool.post(url: urlString, param: ["access_token":accessToken,"openid":openId]) { (response, result) in
-            print("dicTwo ************ \(String(describing: result.value))")
-            let dic: NSDictionary = result.value as! NSDictionary
-            
-            if let errmsg = dic.value(forKey: "errmsg") {
-                print("errmsg ************** \(errmsg)")
-                return
-            }
-        }
-    }
     
     
 

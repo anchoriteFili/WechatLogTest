@@ -18,6 +18,7 @@
 		D6E58A941FEB520A0060DC91 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6E58A931FEB520A0060DC91 /* README.md */; };
 		D6E58A9D1FEB688B0060DC91 /* HYHttpTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */; };
 		D6E58A9F1FEB69970060DC91 /* StringExtTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A9E1FEB69970060DC91 /* StringExtTool.swift */; };
+		D6EE8E991FF1FAA600D2141F /* WXLogTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EE8E981FF1FAA600D2141F /* WXLogTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		D6E58A951FEB53810060DC91 /* WechatLogTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WechatLogTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HYHttpTool.swift; sourceTree = "<group>"; };
 		D6E58A9E1FEB69970060DC91 /* StringExtTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtTool.swift; sourceTree = "<group>"; };
+		D6EE8E981FF1FAA600D2141F /* WXLogTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXLogTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				D6E58A651FEB50ED0060DC91 /* AppDelegate.swift */,
 				D6E58A671FEB50ED0060DC91 /* ViewController.swift */,
 				D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */,
+				D6EE8E981FF1FAA600D2141F /* WXLogTool.swift */,
 				D6E58A691FEB50ED0060DC91 /* Main.storyboard */,
 				D6E58A6C1FEB50ED0060DC91 /* Assets.xcassets */,
 				D6E58A6E1FEB50ED0060DC91 /* LaunchScreen.storyboard */,
@@ -356,6 +359,7 @@
 				D6E58A9F1FEB69970060DC91 /* StringExtTool.swift in Sources */,
 				D6E58A681FEB50ED0060DC91 /* ViewController.swift in Sources */,
 				D6E58A9D1FEB688B0060DC91 /* HYHttpTool.swift in Sources */,
+				D6EE8E991FF1FAA600D2141F /* WXLogTool.swift in Sources */,
 				D6E58A661FEB50ED0060DC91 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

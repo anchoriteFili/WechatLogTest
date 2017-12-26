@@ -22,17 +22,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func loginClick(_ sender: UIButton) {
-        sendAuthRequest()
+        WXLogTool.shared.sendAuthRequest()
     }
     
     
-    func sendAuthRequest() {
-        let req: SendAuthReq = SendAuthReq()
-        req.scope = "snsapi_userinfo"
-        req.state = "WechatLogTest"
-        WXApi.send(req)
-        
-    }
+    
     
 
 
