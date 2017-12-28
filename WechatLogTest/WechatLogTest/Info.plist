@@ -7,14 +7,14 @@
 		<string>wechat</string>
 		<string>weixin</string>
 	</array>
-	<key>qq.com</key>
-	<dict>
-		<key>NSExceptionAllowsInsecureHTTPLoads</key>
-		<true/>
-		<key>NSExceptionRequiresForwardSecrecy</key>
-		<false/>
-		<key>NSIncludesSubdomains</key>
-		<true/>
+    <key>qq.com</key>
+    <dict>
+    <key>NSExceptionAllowsInsecureHTTPLoads</key>
+    <true/>
+    <key>NSExceptionRequiresForwardSecrecy</key>
+    <false/>
+    <key>NSIncludesSubdomains</key>
+    <true/>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
