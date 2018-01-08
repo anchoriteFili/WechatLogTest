@@ -9,7 +9,7 @@
 import UIKit
 
 let WXAPPID = "wx0cd8451d269de523"
-let WXSECRET = "e70fa5e1c1bce1360768ef64078fda78"
+let WXSECRET = ""
 let USER_DEFAULT = UserDefaults.standard // 获取userDefault
 let WXRefreshToken = "WXLogTool_refreshToken"
 let WXAccessToken = "WXLogTool_accessToken"
@@ -90,7 +90,7 @@ class WXLogTool: NSObject, WXApiDelegate {
         let urlString = "https://api.weixin.qq.com/sns/oauth2/access_token"
         print("urlString ************** \(urlString)")
         
-        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"secret":WXSECRET,"code":code,"grant_type":"authorization_code",]) { (response, result) in
+        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"secret":WXSECRET,"code":code,"grant_type":"authorization_code",]) { [weak self] (response, result) in
             print("code 获取 ************ \(String(describing: result.value))")
             
             let dic: NSDictionary = result.value as! NSDictionary
@@ -104,7 +104,7 @@ class WXLogTool: NSObject, WXApiDelegate {
             USER_DEFAULT.set(dic.value(forKey: "openid") as! String, forKey: WXOpenID)
             
 
-            self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token") as! String, openId: dic.value(forKey: "openid") as! String)
+            self?.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token") as! String, openId: dic.value(forKey: "openid") as! String)
         }
         
     }
@@ -137,13 +137,13 @@ class WXLogTool: NSObject, WXApiDelegate {
         
         let urlString = "https://api.weixin.qq.com/sns/oauth2/refresh_token"
         
-        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"grant_type":"refresh_token","refresh_token":refreshToken]) { (response, result) in
+        HYHttpTool.post(url: urlString, param: ["appid":WXAPPID,"grant_type":"refresh_token","refresh_token":refreshToken]) { [weak self] (response, result) in
             print("使用refresh_token刷新access_token ************ \(String(describing: result.value))")
             let dic: NSDictionary = result.value as! NSDictionary
             
             if let errmsg = dic.value(forKey: "errmsg") {
                 // 如果刷新失败，表示过期，可进行再次申请授权
-                self.sendAuthRequest()
+                self?.sendAuthRequest()
                 print("errmsg ************** \(errmsg)")
             } else {
                 // 如果刷新成功，则根据refreshToken获取获取相关信息
@@ -152,7 +152,7 @@ class WXLogTool: NSObject, WXApiDelegate {
                 USER_DEFAULT.set(dic.value(forKey: "access_token") as! String, forKey: WXAccessToken)
                 USER_DEFAULT.set(dic.value(forKey: "openid") as! String, forKey: WXOpenID)
                 
-                self.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
+                self?.getUserInfoWithAccessToken(accessToken:  dic.value(forKey: "access_token")  as! String, openId: dic.value(forKey: "openid") as! String)
             }
         }
     }
@@ -194,21 +194,19 @@ class WXLogTool: NSObject, WXApiDelegate {
             return
         }
         
-        sendAuthRequest()
-        
         if (USER_DEFAULT.object(forKey: WXAccessToken) != nil) {
 
-            accessTokenUsable(access_token: USER_DEFAULT.object(forKey: WXAccessToken) as! String, openId: USER_DEFAULT.object(forKey: WXOpenID) as! String, complete: { (isOK) in
+            accessTokenUsable(access_token: USER_DEFAULT.object(forKey: WXAccessToken) as! String, openId: USER_DEFAULT.object(forKey: WXOpenID) as! String, complete: { [weak self] (isOK) in
 
                 if isOK {
                     print("isOK === yes")
                     // 如果还可以用，则直接去申请用户信息
-                    self.getUserInfoWithAccessToken(accessToken:  USER_DEFAULT.object(forKey: WXAccessToken) as! String, openId: USER_DEFAULT.object(forKey: WXOpenID) as! String)
+                    self?.getUserInfoWithAccessToken(accessToken:  USER_DEFAULT.object(forKey: WXAccessToken) as! String, openId: USER_DEFAULT.object(forKey: WXOpenID) as! String)
                 } else {
                     print("isOK === no")
                     // 如果不可以用，则调取refreshAccessToken
                     // 如果存在则使用refresh_token刷新access_token
-                    self.refreshAccessToken(refreshToken: USER_DEFAULT.object(forKey: WXRefreshToken) as! String)
+                    self?.refreshAccessToken(refreshToken: USER_DEFAULT.object(forKey: WXRefreshToken) as! String)
                 }
 
             })
