@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jap-DX-djT">
-                                <rect key="frame" x="102" y="264.5" width="171" height="138"/>
+                                <rect key="frame" x="102" y="114.5" width="171" height="138"/>
                                 <color key="backgroundColor" red="0.60080295136666662" green="0.27330186631944442" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="171" id="KDE-ku-fTr"/>
@@ -36,11 +36,28 @@
                                     <action selector="loginClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u2L-iz-uIV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Xa-qL-9Gz">
+                                <rect key="frame" x="116" y="262.5" width="142" height="112"/>
+                                <color key="backgroundColor" red="0.60080295139999995" green="0.27330186629999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="AHL-h0-99G"/>
+                                    <constraint firstAttribute="height" constant="112" id="Ssx-JQ-UHp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="支付">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="PayButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HGt-ta-3wI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="jap-DX-djT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EdP-pd-uuk"/>
+                            <constraint firstItem="jap-DX-djT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-150" id="EdP-pd-uuk"/>
                             <constraint firstItem="jap-DX-djT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FKl-GC-SPQ"/>
+                            <constraint firstItem="8Xa-qL-9Gz" firstAttribute="top" secondItem="jap-DX-djT" secondAttribute="bottom" constant="10" id="PfL-fV-DEo"/>
+                            <constraint firstItem="8Xa-qL-9Gz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zzV-gg-uwv"/>
                         </constraints>
                     </view>
                 </viewController>

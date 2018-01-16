@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		740AC5B1863BBE9142911DF7 /* Pods_WechatLogTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBF0B2F18A2848DF74C9C3AE /* Pods_WechatLogTest.framework */; };
+		D663553C200CBE8D000B0865 /* WXPayDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = D6635537200CBE8D000B0865 /* WXPayDemo.m */; };
+		D663553D200CBE8D000B0865 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D663553A200CBE8D000B0865 /* XMLParser.m */; };
+		D663553E200CBE8D000B0865 /* Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = D663553B200CBE8D000B0865 /* Encryption.m */; };
+		D6B68569200D9534001CCFD0 /* WXPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B68567200D9534001CCFD0 /* WXPayViewController.m */; };
+		D6B6856A200D9534001CCFD0 /* WXPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6B68568200D9534001CCFD0 /* WXPayViewController.xib */; };
 		D6E58A661FEB50ED0060DC91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A651FEB50ED0060DC91 /* AppDelegate.swift */; };
 		D6E58A681FEB50ED0060DC91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E58A671FEB50ED0060DC91 /* ViewController.swift */; };
 		D6E58A6B1FEB50ED0060DC91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E58A691FEB50ED0060DC91 /* Main.storyboard */; };
@@ -42,6 +47,15 @@
 		31476E9951E030656573E04B /* Pods-WechatLogTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WechatLogTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WechatLogTest/Pods-WechatLogTest.debug.xcconfig"; sourceTree = "<group>"; };
 		CBF0B2F18A2848DF74C9C3AE /* Pods_WechatLogTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WechatLogTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDF0856B43ED13D4258B6FA /* Pods-WechatLogTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WechatLogTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-WechatLogTest/Pods-WechatLogTest.release.xcconfig"; sourceTree = "<group>"; };
+		D6635536200CBE8D000B0865 /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
+		D6635537200CBE8D000B0865 /* WXPayDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPayDemo.m; sourceTree = "<group>"; };
+		D6635538200CBE8D000B0865 /* Encryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encryption.h; sourceTree = "<group>"; };
+		D6635539200CBE8D000B0865 /* WXPayDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPayDemo.h; sourceTree = "<group>"; };
+		D663553A200CBE8D000B0865 /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
+		D663553B200CBE8D000B0865 /* Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Encryption.m; sourceTree = "<group>"; };
+		D6B68566200D9534001CCFD0 /* WXPayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXPayViewController.h; sourceTree = "<group>"; };
+		D6B68567200D9534001CCFD0 /* WXPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXPayViewController.m; sourceTree = "<group>"; };
+		D6B68568200D9534001CCFD0 /* WXPayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WXPayViewController.xib; sourceTree = "<group>"; };
 		D6E58A621FEB50ED0060DC91 /* WechatLogTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WechatLogTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6E58A651FEB50ED0060DC91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6E58A671FEB50ED0060DC91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,9 +119,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D6635535200CBE8D000B0865 /* WXDemo */ = {
+			isa = PBXGroup;
+			children = (
+				D6635536200CBE8D000B0865 /* XMLParser.h */,
+				D663553A200CBE8D000B0865 /* XMLParser.m */,
+				D6635538200CBE8D000B0865 /* Encryption.h */,
+				D663553B200CBE8D000B0865 /* Encryption.m */,
+				D6635539200CBE8D000B0865 /* WXPayDemo.h */,
+				D6635537200CBE8D000B0865 /* WXPayDemo.m */,
+			);
+			path = WXDemo;
+			sourceTree = "<group>";
+		};
 		D6E58A591FEB50ED0060DC91 = {
 			isa = PBXGroup;
 			children = (
+				D6635535200CBE8D000B0865 /* WXDemo */,
 				D6E58A641FEB50ED0060DC91 /* WechatLogTest */,
 				D6E58A791FEB50ED0060DC91 /* WechatLogTestTests */,
 				D6E58A841FEB50ED0060DC91 /* WechatLogTestUITests */,
@@ -136,6 +164,9 @@
 				D6E58A671FEB50ED0060DC91 /* ViewController.swift */,
 				D6E58A9C1FEB688B0060DC91 /* HYHttpTool.swift */,
 				D6EE8E981FF1FAA600D2141F /* WXLogTool.swift */,
+				D6B68566200D9534001CCFD0 /* WXPayViewController.h */,
+				D6B68567200D9534001CCFD0 /* WXPayViewController.m */,
+				D6B68568200D9534001CCFD0 /* WXPayViewController.xib */,
 				D6E58A691FEB50ED0060DC91 /* Main.storyboard */,
 				D6E58A6C1FEB50ED0060DC91 /* Assets.xcassets */,
 				D6E58A6E1FEB50ED0060DC91 /* LaunchScreen.storyboard */,
@@ -277,6 +308,7 @@
 				D6E58A701FEB50ED0060DC91 /* LaunchScreen.storyboard in Resources */,
 				D6E58A6D1FEB50ED0060DC91 /* Assets.xcassets in Resources */,
 				D6E58A941FEB520A0060DC91 /* README.md in Resources */,
+				D6B6856A200D9534001CCFD0 /* WXPayViewController.xib in Resources */,
 				D6E58A6B1FEB50ED0060DC91 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,11 +388,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D663553D200CBE8D000B0865 /* XMLParser.m in Sources */,
+				D663553C200CBE8D000B0865 /* WXPayDemo.m in Sources */,
+				D663553E200CBE8D000B0865 /* Encryption.m in Sources */,
 				D6E58A9F1FEB69970060DC91 /* StringExtTool.swift in Sources */,
 				D6E58A681FEB50ED0060DC91 /* ViewController.swift in Sources */,
 				D6E58A9D1FEB688B0060DC91 /* HYHttpTool.swift in Sources */,
 				D6EE8E991FF1FAA600D2141F /* WXLogTool.swift in Sources */,
 				D6E58A661FEB50ED0060DC91 /* AppDelegate.swift in Sources */,
+				D6B68569200D9534001CCFD0 /* WXPayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

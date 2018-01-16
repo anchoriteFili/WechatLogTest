@@ -8,13 +8,15 @@
 
 import UIKit
 
-let WXAPPID = "wx0cd8451d269de523"
-let WXSECRET = ""
+private let WXAPPID = "wx427a2f57bc4456d1"
+private let WXSECRET = "e70fa5e1c1bce1360768ef64078fda78"
 let USER_DEFAULT = UserDefaults.standard // 获取userDefault
 let WXRefreshToken = "WXLogTool_refreshToken"
 let WXAccessToken = "WXLogTool_accessToken"
 let WXOpenID = "WXLogTool_openid"
 let WXUnionid = "WXLogTool_unionid"
+private let Mac_Id = "" // 商户号
+private let api_key = "" // 商户 API 密钥
 
 
 class WXLogTool: NSObject, WXApiDelegate {
@@ -47,6 +49,12 @@ class WXLogTool: NSObject, WXApiDelegate {
             let obj: WXAppExtendObject = msg.mediaObject as! WXAppExtendObject
             
             print("标题：\(msg.title) 内容：\(msg.description) 附带信息：\(obj.extInfo) 缩略图：\(msg.thumbData.count)")
+        } else if req.isKind(of: GetMessageFromWXReq.self) {
+            
+            // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
+            let tmp: GetMessageFromWXReq = req as! GetMessageFromWXReq
+            print("来到了***** GetMessageFromWXReq \(tmp)")
+            
         } else if req.isKind(of: LaunchFromWXReq.self) {
             // 从微信启动app
             print("从微信启动app")
@@ -58,20 +66,38 @@ class WXLogTool: NSObject, WXApiDelegate {
     /// - Parameter resp: 具体的回应内容，是自动释放的
     func onResp(_ resp: BaseResp!) {
         
-        switch resp.errCode {
-        case 0: // 用户同意
-            // 调用相关方法
-            let aresp: SendAuthResp = resp as! SendAuthResp
-            print("code *********** \(aresp.code)")
-            weChatCallBackWithCode(code: aresp.code)
-            break
-        case -4: // 用户拒绝授权
-            break
-        case -2: // 用户取消
-            break
-        default:
-            break
+        if resp.isKind(of: PayResp.self) {
+            //支付返回结果，实际支付结果需要去微信服务器端查询
+            var strMsg: String
+            switch resp.errCode {
+            case 0:
+                strMsg = "支付结果：成功！"
+            default:
+                strMsg = "支付结果：失败！retcode = \(resp.errCode), retstr = \(resp.errStr)"
+            }
+            
+            print("strMsg ************ \(strMsg)")
+            
+        } else {
+            
+            switch resp.errCode {
+            case 0: // 用户同意
+                // 调用相关方法
+                let aresp: SendAuthResp = resp as! SendAuthResp
+                print("code *********** \(aresp.code)")
+                weChatCallBackWithCode(code: aresp.code)
+                break
+            case -4: // 用户拒绝授权
+                break
+            case -2: // 用户取消
+                break
+            default:
+                break
+            }
+            
         }
+        
+        
         
     }
     
@@ -223,5 +249,23 @@ class WXLogTool: NSObject, WXApiDelegate {
         req.state = "WechatLogTest"
         WXApi.send(req)
     }
+    
+    
+    func sendPayRequest() {
+//        let req: PayReq = PayReq()
+        
+        
+        
+        
+        
+    }
+    
+//    ************************ 支付部分 begin ***************************
+    
+    
+    
+    
+    
+//    ************************ 支付部分 end ***************************
 
 }

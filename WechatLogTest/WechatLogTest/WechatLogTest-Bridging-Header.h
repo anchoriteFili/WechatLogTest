@@ -3,3 +3,5 @@
 //
 
 #import "WXApi.h"
+#import "WXPayDemo.h"
+#import "WXPayViewController.h"

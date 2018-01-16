@@ -27,6 +27,15 @@ class ViewController: UIViewController {
     
     
     
+    @IBAction func PayButtonClick(_ sender: Any) {
+        
+        self.present(WXPayViewController(), animated: true) {
+            
+        }
+        
+        
+        
+    }
     
 
 
