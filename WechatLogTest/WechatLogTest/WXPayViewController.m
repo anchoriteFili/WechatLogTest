@@ -105,27 +105,7 @@
     
     WXPayDemo *payDemo = [[WXPayDemo alloc] init]; //初始化demo，启用demo方法
     [payDemo setApp_id:APP_ID mach_id:MCH_ID andKey:PARTNER_ID]; //设置开发平台id、商户号和私钥
-    NSMutableDictionary *dic = [payDemo payWithOrderName:@"微信支付测试" andOrderPrice:@"1"]; //提交商品描述和商品价格，价格单位为分，第二次签名信息
-    
-    if (dic == nil) {
-        NSString *debug = [payDemo getDebugInfo]; //如果第二次签名失败，返回调试信息，进行调试
-        [self alert:@"提示信息" msg:debug];
-        
-    } else {
-        [self alert:@"确认" msg:@"下单成功，点击OK后调起支付"];
-        
-        //调起微信支付
-        PayReq *req     = [[PayReq alloc] init];
-        req.openID      = [dic objectForKey:@"appid"];
-        req.partnerId   = [dic objectForKey:@"partnerid"];
-        req.prepayId    = [dic objectForKey:@"prepayid"];
-        req.nonceStr    = [dic objectForKey:@"noncestr"];
-        req.timeStamp   = [[dic objectForKey:@"timestamp"] intValue];
-        req.package     = [dic objectForKey:@"package"];
-        req.sign        = [dic objectForKey:@"sign"];
-        [WXApi sendReq:req];
-        
-    }
+    [payDemo payWithOrderName:@"微信支付测试" andOrderPrice:@"1"]; //提交商品描述和商品价
 }
 
 //客户端提示信息

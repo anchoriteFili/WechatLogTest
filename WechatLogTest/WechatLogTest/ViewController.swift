@@ -29,10 +29,7 @@ class ViewController: UIViewController {
     
     @IBAction func PayButtonClick(_ sender: Any) {
         
-        self.present(WXPayViewController(), animated: true) {
-            
-        }
-        
+        WXLogTool.shared.pay(orderName: "微信支付测试", orderPrice: "1")
         
         
     }

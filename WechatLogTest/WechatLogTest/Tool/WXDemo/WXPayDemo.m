@@ -58,11 +58,28 @@
         
         [debugInfo appendFormat:@"第二步签名成功，sign＝%@\n",sign]; //返回调试信息
         
-        return signParams; //将参数返回
+        [self WXPayWithDic:signParams];
+//        return signParams; //将参数返回
     } else {
+        [self alert:@"提示信息" msg:debugInfo];
         [debugInfo appendFormat:@"获取prepayid失败！！！"];
     }
     return nil;
+}
+
+#pragma mark 如果二次签名成功，则直接调取微信支付
+- (void)WXPayWithDic:(NSMutableDictionary *)dic {
+    
+    //调起微信支付
+    PayReq *req     = [[PayReq alloc] init];
+    req.openID      = [dic objectForKey:@"appid"];
+    req.partnerId   = [dic objectForKey:@"partnerid"];
+    req.prepayId    = [dic objectForKey:@"prepayid"];
+    req.nonceStr    = [dic objectForKey:@"noncestr"];
+    req.timeStamp   = [[dic objectForKey:@"timestamp"] intValue];
+    req.package     = [dic objectForKey:@"package"];
+    req.sign        = [dic objectForKey:@"sign"];
+    [WXApi sendReq:req];
 }
 
 #pragma mark 设置开发平台id、商户号、商户私钥
@@ -186,6 +203,14 @@
     }
     
     return prepayid;
+}
+
+//客户端提示信息
+- (void)alert:(NSString *)title msg:(NSString *)msg
+{
+    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alter show];
 }
 
 

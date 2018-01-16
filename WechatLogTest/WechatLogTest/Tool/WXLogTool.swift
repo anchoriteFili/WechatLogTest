@@ -10,13 +10,14 @@ import UIKit
 
 private let WXAPPID = "wx427a2f57bc4456d1"
 private let WXSECRET = "e70fa5e1c1bce1360768ef64078fda78"
+private let WXMacId = "1242316102" // 商户号
+private let WXApiKey = "12345678901234567890123456789020" // 商户 API 密钥
 let USER_DEFAULT = UserDefaults.standard // 获取userDefault
 let WXRefreshToken = "WXLogTool_refreshToken"
 let WXAccessToken = "WXLogTool_accessToken"
 let WXOpenID = "WXLogTool_openid"
 let WXUnionid = "WXLogTool_unionid"
-private let Mac_Id = "" // 商户号
-private let api_key = "" // 商户 API 密钥
+
 
 
 class WXLogTool: NSObject, WXApiDelegate {
@@ -262,9 +263,13 @@ class WXLogTool: NSObject, WXApiDelegate {
     
 //    ************************ 支付部分 begin ***************************
     
-    
-    
-    
+    func pay(orderName: String, orderPrice: String) -> Void {
+        
+        let payDemo = WXPayDemo()
+        payDemo.setApp_id(WXAPPID, mach_id: WXMacId, andKey: WXApiKey)
+        payDemo.pay(withOrderName: orderName, andOrderPrice: orderPrice)
+        
+    }
     
 //    ************************ 支付部分 end ***************************
 

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Encryption.h"
 #import "XMLParser.h"
+#import "WXApi.h"
 
 #define APP_ID          @"wx427a2f57bc4456d1" //公众账号ID 微信分配的公众账号ID
 #define APP_SECRET      @"" //appsecret
@@ -42,6 +43,7 @@
 - (NSString *)getPackage:(NSMutableDictionary *)packageParams;
 #pragma mark 提交预支付
 - (NSString *)sendPrepay:(NSMutableDictionary *)prePayParams;
+
 
 
 
