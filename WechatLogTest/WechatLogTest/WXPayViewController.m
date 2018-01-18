@@ -31,7 +31,7 @@
     btn4.titleLabel.font = [UIFont systemFontOfSize:14];
     [btn4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn4 setFrame:CGRectMake(10, 180, 145, 40)];
-    [btn4 addTarget:self action:@selector(sendPay_demo) forControlEvents:UIControlEventTouchUpInside];
+    [btn4 addTarget:self action:@selector(sendPay) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn4];
 }
 

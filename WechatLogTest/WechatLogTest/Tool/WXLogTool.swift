@@ -8,10 +8,10 @@
 
 import UIKit
 
-private let WXAPPID = "wx427a2f57bc4456d1"
+private let WXAPPID = "wx0cd8451d269de523"
 private let WXSECRET = "e70fa5e1c1bce1360768ef64078fda78"
-private let WXMacId = "1242316102" // 商户号
-private let WXApiKey = "12345678901234567890123456789020" // 商户 API 密钥
+private let WXMacId = "10000100" // 商户号
+private let WXApiKey = "1add1a30ac87aa2db72f57a2375d8fec" // 商户 API 密钥
 let USER_DEFAULT = UserDefaults.standard // 获取userDefault
 let WXRefreshToken = "WXLogTool_refreshToken"
 let WXAccessToken = "WXLogTool_accessToken"
@@ -201,7 +201,7 @@ class WXLogTool: NSObject, WXApiDelegate {
             
             if let errmsg = dic.value(forKey: "errmsg") {
                 print("errmsg ************** \(errmsg)")
-                
+
                 if errmsg as! String == "ok" {
                     complete(true)
                 } else {
@@ -263,11 +263,28 @@ class WXLogTool: NSObject, WXApiDelegate {
     
 //    ************************ 支付部分 begin ***************************
     
-    func pay(orderName: String, orderPrice: String) -> Void {
+    /// 使用demo进行支付
+    ///
+    /// - Parameters:
+    ///   - orderName: 商品名字
+    ///   - orderPrice: 商品价格（分）
+    func payUseDemo(orderName: String, orderPrice: String) -> Void {
         
         let payDemo = WXPayDemo()
         payDemo.setApp_id(WXAPPID, mach_id: WXMacId, andKey: WXApiKey)
         payDemo.pay(withOrderName: orderName, andOrderPrice: orderPrice)
+    }
+    
+    
+    /// 直接调用接口进行支付
+    ///
+    /// - Parameters:
+    ///   - orderName: 商品名字
+    ///   - orderPrice: 商品价格（分）
+    func pay(orderName: String, orderPrice: String) -> Void {
+        
+        
+        
         
     }
     

@@ -6,7 +6,9 @@
 //  Copyright © 2017年 赵宏亚. All rights reserved.
 //
 
-import Foundation
+//import Foundation
+import UIKit
+
 
 // 扩充String
 extension String {

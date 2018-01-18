@@ -3,7 +3,7 @@
 //  微信支付测试2
 //
 //  Created by MAC on 15/8/18.
-//  Copyright (c) 2015年 博思创影. All rights reserved.
+//  Copyright (c) 2015年 赵宏亚. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

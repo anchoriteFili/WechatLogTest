@@ -3,7 +3,7 @@
 //  微信支付测试2
 //
 //  Created by MAC on 15/8/18.
-//  Copyright (c) 2015年 博思创影. All rights reserved.
+//  Copyright (c) 2015年 赵宏亚. All rights reserved.
 //
 
 #import "WXPayDemo.h"
@@ -62,6 +62,7 @@
 //        return signParams; //将参数返回
     } else {
         [self alert:@"提示信息" msg:debugInfo];
+        NSLog(@"debugInfo ======== %@",debugInfo);
         [debugInfo appendFormat:@"获取prepayid失败！！！"];
     }
     return nil;
@@ -163,6 +164,7 @@
     NSString *prepayid = nil;
     
     NSString *prePayParamsXml = [self getPackage:prePayParams]; //获取xml形式的预支付参数
+    NSLog(@"prePayParamsXml ========= %@",prePayParamsXml);
     
     [debugInfo appendFormat:@"API链接:%@\n", payUrl]; //将参数添加到调试信息中
     [debugInfo appendFormat:@"发送的xml:%@\n", prePayParamsXml];
